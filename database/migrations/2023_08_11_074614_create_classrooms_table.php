@@ -4,19 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassesTable extends Migration
+class CreateClassroomsTable extends Migration
 {
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('classrooms', function (Blueprint $table) {
 
             $table->id();
             $table->string('name');
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('total_credit');
-            $table->unsignedBigInteger('class_type_id');
-            $table->foreign('class_type_id')->references('id')->on('class_types');
+            $table->unsignedBigInteger('classroom_type_id');
+            $table->foreign('classroom_type_id')->references('id')->on('classroom_types');
             $table->timestamps();
         
         });
@@ -24,6 +24,6 @@ class CreateClassesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('classrooms');
     }
 }

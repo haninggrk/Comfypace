@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassLevelsTable extends Migration
+class CreateClassroomLevelsTable extends Migration
 {
     public function up()
     {
-        Schema::create('class_levels', function (Blueprint $table) {
+        Schema::create('classroom_levels', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('level_id');
             $table->boolean('is_active');
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->foreign('level_id')->references('id')->on('levels');
         
         });
@@ -21,6 +21,6 @@ class CreateClassLevelsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('class_levels');
+        Schema::dropIfExists('classroom_levels');
     }
 }
