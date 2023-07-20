@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ModuleResource\RelationManagers;
 
+use App\Models\Unit;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -42,8 +43,7 @@ class UnitsRelationManager extends RelationManager
     {
         return $table
         ->columns([
-            Tables\Columns\TextColumn::make('img_url')->label("Youtube")->formatUsing(fn () => 'Open in Youtube')
-            ->url(fn ($record) => $record->github_url, true),
+ 
             Tables\Columns\TextColumn::make('name'),
             Tables\Columns\TextColumn::make('description')->wrap()->html(),
             Tables\Columns\TextColumn::make('point'),
@@ -52,6 +52,8 @@ class UnitsRelationManager extends RelationManager
             //
         ])
         ->actions([
+            Tables\Actions\Action::make("Open in Youtube")
+            ->url(fn ($record) => $record->img_url, true),
             Tables\Actions\EditAction::make(),
             Tables\Actions\DeleteAction::make(),
         ])
