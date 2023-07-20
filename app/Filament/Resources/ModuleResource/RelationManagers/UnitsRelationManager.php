@@ -42,7 +42,8 @@ class UnitsRelationManager extends RelationManager
     {
         return $table
         ->columns([
-            Tables\Columns\ImageColumn::make('img_url')->label("Image"),
+            Tables\Columns\TextColumn::make('img_url')->label("Youtube")->formatUsing(fn () => 'Open in Youtube')
+            ->url(fn ($record) => $record->github_url, true),
             Tables\Columns\TextColumn::make('name'),
             Tables\Columns\TextColumn::make('description')->wrap()->html(),
             Tables\Columns\TextColumn::make('point'),
