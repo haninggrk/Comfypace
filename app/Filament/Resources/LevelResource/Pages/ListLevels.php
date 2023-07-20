@@ -4,9 +4,9 @@ namespace App\Filament\Resources\LevelResource\Pages;
 
 use App\Filament\Resources\LevelResource;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 
-class ManageLevels extends ManageRecords
+class ListLevels extends ListRecords
 {
     protected static string $resource = LevelResource::class;
 

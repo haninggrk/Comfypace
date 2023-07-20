@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\LevelResource\RelationManagers;
 
-use App\Filament\Resources\ModuleResource\Pages;
-use App\Filament\Resources\ModuleResource\RelationManagers;
 use App\Models\Module;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ModuleResource extends Resource
+class ModulesRelationManager extends RelationManager
 {
-    protected static ?string $model = Module::class;
-    protected static ?string $navigationGroup = 'Level, Classroom & Material';
+    protected static string $relationship = 'modules';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
     {
@@ -45,10 +42,9 @@ class ModuleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('level.name'),
                 Tables\Columns\ImageColumn::make('img_url'),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('description'),          
+                Tables\Columns\TextColumn::make('description'),
             ])
             ->reorderable('order_number')
             ->defaultSort('order_number')
@@ -57,27 +53,14 @@ class ModuleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('up')
+                    ->action(fn (Module $record) => $record->moveOrderUp()),
+                Tables\Actions\Action::make('down')
+                    ->action(fn (Module $record) => $record->moveOrderDown()),
 
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-    
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListModules::route('/'),
-            'create' => Pages\CreateModule::route('/create'),
-            'edit' => Pages\EditModule::route('/{record}/edit'),
-        ];
-    }    
 }
