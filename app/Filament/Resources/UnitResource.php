@@ -48,7 +48,7 @@ class UnitResource extends Resource
                 Tables\Columns\TextColumn::make('module.name'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description')->wrap()->html(),
-                Tables\Columns\TextColumn::make('img_url')->label("Image"),
+                Tables\Columns\TextColumn::make('img_url')->label("Youtube Link"),
                 Tables\Columns\TextColumn::make('point'),
             ])
             ->filters([
