@@ -26,7 +26,10 @@ class Module extends Model implements Sortable
      * @var array
      */
     protected $fillable = ['level_id', 'name', 'description', 'img_url', 'order_number', 'created_at', 'updated_at'];
-
+    public function buildSortQuery()
+    {
+        return static::query()->where('level_id', $this->level_id);
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
 /**
  * @property integer $id
@@ -20,8 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property UserUnit[] $userUnits
  * @property Vocabulary[] $vocabularies
  */
-class Unit extends Model
+class Unit extends Model implements Sortable
 {
+    use SortableTrait;
     /**
      * @var array
      */

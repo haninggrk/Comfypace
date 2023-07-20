@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ModuleResource\Pages;
 use App\Filament\Resources\ModuleResource\RelationManagers;
+use App\Filament\Resources\ModuleResource\RelationManagers\UnitsRelationManager;
 use App\Models\Module;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -22,7 +23,7 @@ class ModuleResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
+        return $form->columns(2)
             ->schema([
                 Forms\Components\Select::make('level_id')
                     ->relationship('level', 'name')
@@ -30,14 +31,13 @@ class ModuleResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)->columnSpan(2),
                 Forms\Components\FileUpload::make('img_url')
                     ->directory('module-images')
                     ->storeFileNamesIn("original_filename"),
-                Forms\Components\TextInput::make('order_number')
-                    ->required(),
+
             ]);
     }
 
@@ -50,7 +50,6 @@ class ModuleResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description'),          
             ])
-            ->reorderable('order_number')
             ->defaultSort('order_number')
             ->filters([
                 //
@@ -68,7 +67,7 @@ class ModuleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UnitsRelationManager::class
         ];
     }
     
