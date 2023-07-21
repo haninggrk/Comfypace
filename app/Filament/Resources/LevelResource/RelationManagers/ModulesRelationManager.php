@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\LevelResource\RelationManagers;
 
+use App\Filament\Resources\ModuleResource;
+use App\Filament\Resources\UnitResource;
 use App\Models\Module;
+use App\Models\Unit;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -52,7 +55,8 @@ class ModulesRelationManager extends RelationManager
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                  ->url(fn (Module $record): string => ModuleResource::getUrl('edit', $record)),
                 Tables\Actions\Action::make('up')
                     ->action(fn (Module $record) => $record->moveOrderUp()),
                 Tables\Actions\Action::make('down')
